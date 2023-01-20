@@ -6,4 +6,8 @@ class Question {
     questionText = q;
     questionAnswer = a;
   }
+
+  randomizeAnswers() {
+    return null;
+  }
 }
