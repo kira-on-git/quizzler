@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:quizzler/question.dart';
 
 import 'question.dart';
 
@@ -39,11 +38,9 @@ class _QuizPageState extends State<QuizPage> {
   int questionNumber = 0;
 
   List<Question> questionBank = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(
-        q: 'Approximately one quarter of human bones are in the feet.',
-        a: true),
-    Question(q: 'A slug\'s blood is green.', a: true),
+    Question('You can lead a cow down stairs but not up stairs.', false),
+    Question('Approximately one quarter of human bones are in the feet.', true),
+    Question('A slug\'s blood is green.', true),
   ];
 
   @override
@@ -82,8 +79,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer =
-                    questionBank[questionNumber].questionAnswer as bool;
+                bool? correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
                 if (correctAnswer == true) {
                   print('user got it right');
                 } else {
@@ -117,12 +114,12 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer =
-                    questionBank[questionNumber].questionAnswer as bool;
+                bool? correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
                 if (correctAnswer == false) {
-                  print('user got it wrong');
-                } else {
                   print('user got it right');
+                } else {
+                  print('user got it wrong');
                 }
                 setState(() {
                   questionNumber++;
