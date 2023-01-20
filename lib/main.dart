@@ -36,7 +36,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
-  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Center(
               child: Text(
                 //QUESTION ***************************************************
-                quizBrain.getQuestionText(questionNumber).toString(),
+                quizBrain.getQuestionText().toString(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -76,19 +75,15 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //ANSWER TRUE *******************************************
-                bool? correctAnswer =
-                    quizBrain.getQuestionAnswer(questionNumber);
+                bool? correctAnswer = quizBrain.getQuestionAnswer();
+                print('the correctAnswer: $correctAnswer');
                 if (correctAnswer == true) {
                   print('user got it right');
                 } else {
                   print('user got it wrong');
                 }
                 setState(() {
-                  questionNumber++;
-                  // print('true');
-                  // questionNumber < questions.length
-                  //     ? questionNumber++
-                  //     : print('reset');
+                  quizBrain.nextQuestion();
                   scoreKeeper.add(const Icon(
                     Icons.check,
                     color: Colors.green,
@@ -112,18 +107,15 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //ANSWER FALSE *****************************************
-                bool? correctAnswer =
-                    quizBrain.getQuestionAnswer(questionNumber);
+                bool? correctAnswer = quizBrain.getQuestionAnswer();
+                print('the correctAnswer: $correctAnswer');
                 if (correctAnswer == false) {
                   print('user got it right');
                 } else {
                   print('user got it wrong');
                 }
                 setState(() {
-                  questionNumber++;
-                  // questionNumber < questions.length
-                  //     ? questionNumber++
-                  //     : print('reset');
+                  quizBrain.nextQuestion();
                   scoreKeeper.add(const Icon(
                     Icons.close,
                     color: Colors.red,

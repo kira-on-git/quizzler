@@ -1,8 +1,12 @@
+// ignore_for_file: avoid_print
+
+import 'package:quizzler/main.dart';
+
 import 'question.dart';
 
 class QuizBrain {
-  // ignore: prefer_final_fields
-  List<Question> _questionBank = [
+  int _questionNumber = 0;
+  final List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -29,12 +33,19 @@ class QuizBrain {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
-
-  String? getQuestionText(int questionNumber) {
-    return _questionBank[questionNumber].questionText;
+  void nextQuestion() {
+    if (_questionNumber < _questionBank.length - 1) {
+      _questionNumber++;
+    }
+    print(_questionNumber);
+    print(_questionBank.length);
   }
 
-  bool? getQuestionAnswer(int questionNumber) {
-    return _questionBank[questionNumber].questionAnswer;
+  String? getQuestionText() {
+    return _questionBank[_questionNumber].questionText;
+  }
+
+  bool? getQuestionAnswer() {
+    return _questionBank[_questionNumber].questionAnswer;
   }
 }
