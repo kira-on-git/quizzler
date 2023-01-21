@@ -37,12 +37,52 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
 
+  //int finalScore = 0;
+  void checkAnswer(bool userPickedAnswer) {
+    bool? correctAnswer = quizBrain.getQuestionAnswer();
+    if (userPickedAnswer == correctAnswer) {
+      scoreKeeper.add(const Icon(
+        Icons.check,
+        color: Colors.green,
+      ));
+      print('user got it right');
+      //finalScore += 10;
+    } else {
+      print('user got it wrong');
+      scoreKeeper.add(const Icon(
+        Icons.close,
+        color: Colors.red,
+      ));
+      //finalScore -= 5;
+    }
+    setState(() {
+      quizBrain.nextQuestion();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        // Expanded(
+        //   flex: 5,
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(10.0),
+        //     child: Center(
+        //       child: Text(
+        //         //SCORE ***************************************************
+        //         finalScore.toString(),
+        //         textAlign: TextAlign.center,
+        //         style: const TextStyle(
+        //           fontSize: 25.0,
+        //           color: Colors.white,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Expanded(
           flex: 5,
           child: Padding(
@@ -75,20 +115,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //ANSWER TRUE *******************************************
-                bool? correctAnswer = quizBrain.getQuestionAnswer();
-                print('the correctAnswer: $correctAnswer');
-                if (correctAnswer == true) {
-                  print('user got it right');
-                } else {
-                  print('user got it wrong');
-                }
-                setState(() {
-                  quizBrain.nextQuestion();
-                  scoreKeeper.add(const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ));
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -106,25 +133,30 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //ANSWER FALSE *****************************************
-                bool? correctAnswer = quizBrain.getQuestionAnswer();
-                print('the correctAnswer: $correctAnswer');
-                if (correctAnswer == false) {
-                  print('user got it right');
-                } else {
-                  print('user got it wrong');
-                }
-                setState(() {
-                  quizBrain.nextQuestion();
-                  scoreKeeper.add(const Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ));
-                });
+                //ANSWER FALSE ******************************
+                checkAnswer(false);
               },
             ),
           ),
         ),
+        // Expanded(
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(15.0),
+        //     child: MaterialButton(
+        //       color: Colors.blue,
+        //       child: const Text(
+        //         'SCORE',
+        //         style: TextStyle(
+        //           fontSize: 20.0,
+        //           color: Colors.white,
+        //         ),
+        //       ),
+        //       onPressed: () {
+        //         //SCORE ******************************
+        //       },
+        //     ),
+        //   ),
+        // ),
         /** */
 
         /** */
@@ -140,24 +172,3 @@ question2: 'Approximately one quarter of human bones are in the feet.', true,
 question3: 'A slug\'s blood is green.', true,
 */
 
-// @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         body: ListView.builder(
-//           itemCount: items.length,
-//           itemBuilder: (context, index) {
-//             return CheckboxListTile(
-//               title: Text(items[index]),
-//               value: selected[index],
-//               onChanged: (bool value) {
-//                 setState(() {
-//                   selected[index] = value;
-//                 });
-//               },
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }

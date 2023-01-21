@@ -1,7 +1,4 @@
 // ignore_for_file: avoid_print
-
-import 'package:quizzler/main.dart';
-
 import 'question.dart';
 
 class QuizBrain {
